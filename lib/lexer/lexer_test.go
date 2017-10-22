@@ -57,6 +57,12 @@ let add = fn(x, y) {
 let result = add(five, ten);
 !-/*5;
 5 < 10 > 5;
+
+if (9 < ten) {
+	return true;
+} else {
+	return false;
+}
 `
 	expectedTokens := []lexer.Token{
 		{lexer.LET, "let"},
@@ -64,11 +70,13 @@ let result = add(five, ten);
 		{lexer.ASSIGN, "="},
 		{lexer.INT, "5"},
 		{lexer.SEMICOLON, ";"},
+
 		{lexer.LET, "let"},
 		{lexer.IDENT, "ten"},
 		{lexer.ASSIGN, "="},
 		{lexer.INT, "10"},
 		{lexer.SEMICOLON, ";"},
+
 		{lexer.LET, "let"},
 		{lexer.IDENT, "add"},
 		{lexer.ASSIGN, "="},
@@ -85,6 +93,7 @@ let result = add(five, ten);
 		{lexer.SEMICOLON, ";"},
 		{lexer.RBRACE, "}"},
 		{lexer.SEMICOLON, ";"},
+
 		{lexer.LET, "let"},
 		{lexer.IDENT, "result"},
 		{lexer.ASSIGN, "="},
@@ -95,6 +104,7 @@ let result = add(five, ten);
 		{lexer.IDENT, "ten"},
 		{lexer.RPAREN, ")"},
 		{lexer.SEMICOLON, ";"},
+
 		{lexer.BANG, "!"},
 		{lexer.MINUS, "-"},
 		{lexer.SLASH, "/"},
@@ -107,6 +117,25 @@ let result = add(five, ten);
 		{lexer.GT, ">"},
 		{lexer.INT, "5"},
 		{lexer.SEMICOLON, ";"},
+
+		{lexer.IF, "if"},
+		{lexer.LPAREN, "("},
+		{lexer.INT, "9"},
+		{lexer.LT, "<"},
+		{lexer.IDENT, "ten"},
+		{lexer.RPAREN, ")"},
+		{lexer.LBRACE, "{"},
+		{lexer.RETURN, "return"},
+		{lexer.TRUE, "true"},
+		{lexer.SEMICOLON, ";"},
+		{lexer.RBRACE, "}"},
+		{lexer.ELSE, "else"},
+		{lexer.LBRACE, "{"},
+		{lexer.RETURN, "return"},
+		{lexer.FALSE, "false"},
+		{lexer.SEMICOLON, ";"},
+		{lexer.RBRACE, "}"},
+
 		{lexer.EOF, ""},
 	}
 	l := lexer.New(input)
