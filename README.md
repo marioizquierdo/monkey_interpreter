@@ -19,3 +19,10 @@ let fibonacci = fn(x) {
 
 let result = fibonacci(100);
 ```
+
+### Run the interpreter
+
+If you have Go installed, you can `git pull` or `go get` this repo, and then:
+```
+go run cmd/monkey/main.go
+```
