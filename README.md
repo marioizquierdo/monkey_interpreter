@@ -5,7 +5,6 @@ Let's write an interpreter in Go, along with the fantastic book
 
 The interpreter is written in Go, but runs code in Monkey, which looks like this:
 ```
-// The classic fibonacci function
 let fibonacci = fn(x) {
   if (x == 0) {
     0                // Monkey supports implicit returning of values

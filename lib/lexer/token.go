@@ -11,8 +11,14 @@ const (
 	IDENT = "IDENT"
 
 	// Operators
-	ASSIGN = "ASSIGN"
-	PLUS   = "PLUS"
+	ASSIGN   = "ASSIGN"
+	PLUS     = "PLUS"
+	MINUS    = "MINUS"
+	BANG     = "BANG"
+	ASTERISK = "ASTERISK"
+	SLASH    = "SLASH"
+	LT       = "LT"
+	GT       = "GT"
 
 	// Delimiters
 	COMMA     = "COMMA"

@@ -55,6 +55,8 @@ let add = fn(x, y) {
 };
 
 let result = add(five, ten);
+!-/*5;
+5 < 10 > 5;
 `
 	expectedTokens := []lexer.Token{
 		{lexer.LET, "let"},
@@ -92,6 +94,18 @@ let result = add(five, ten);
 		{lexer.COMMA, ","},
 		{lexer.IDENT, "ten"},
 		{lexer.RPAREN, ")"},
+		{lexer.SEMICOLON, ";"},
+		{lexer.BANG, "!"},
+		{lexer.MINUS, "-"},
+		{lexer.SLASH, "/"},
+		{lexer.ASTERISK, "*"},
+		{lexer.INT, "5"},
+		{lexer.SEMICOLON, ";"},
+		{lexer.INT, "5"},
+		{lexer.LT, "<"},
+		{lexer.INT, "10"},
+		{lexer.GT, ">"},
+		{lexer.INT, "5"},
 		{lexer.SEMICOLON, ";"},
 		{lexer.EOF, ""},
 	}
