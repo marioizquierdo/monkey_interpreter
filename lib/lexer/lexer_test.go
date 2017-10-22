@@ -63,6 +63,9 @@ if (9 < ten) {
 } else {
 	return false;
 }
+
+10 == 10;
+10 != 9;
 `
 	expectedTokens := []lexer.Token{
 		{lexer.LET, "let"},
@@ -135,6 +138,15 @@ if (9 < ten) {
 		{lexer.FALSE, "false"},
 		{lexer.SEMICOLON, ";"},
 		{lexer.RBRACE, "}"},
+
+		{lexer.INT, "10"},
+		{lexer.EQ, "=="},
+		{lexer.INT, "10"},
+		{lexer.SEMICOLON, ";"},
+		{lexer.INT, "10"},
+		{lexer.NOT_EQ, "!="},
+		{lexer.INT, "9"},
+		{lexer.SEMICOLON, ";"},
 
 		{lexer.EOF, ""},
 	}

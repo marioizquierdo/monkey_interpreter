@@ -19,6 +19,8 @@ const (
 	SLASH    = "SLASH"
 	LT       = "LT"
 	GT       = "GT"
+	EQ       = "EQ"
+	NOT_EQ   = "NOT_EQ"
 
 	// Delimiters
 	COMMA     = "COMMA"
