@@ -28,6 +28,19 @@ const (
 	LET      = "LET"
 )
 
+var keywords = map[string]TokenType{
+	"fn":  FUNCTION,
+	"let": LET,
+}
+
+// IdentType of an identifier is either one of the keywords or IDENT
+func IdentType(ident string) TokenType {
+	if tok, ok := keywords[ident]; ok {
+		return tok
+	}
+	return IDENT
+}
+
 type TokenType string
 
 type Token struct {

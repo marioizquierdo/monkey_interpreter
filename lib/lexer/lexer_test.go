@@ -6,8 +6,8 @@ import (
 	"github.com/marioizquierdo/monkey_interpreter/lib/lexer"
 )
 
-func Test_NextToken_FewChars(t *testing.T) {
-	input := `=+(`
+func Test_NextToken_Simple(t *testing.T) {
+	input := `=+`
 	l := lexer.New(input)
 
 	tok1 := l.NextToken()
@@ -20,12 +20,6 @@ func Test_NextToken_FewChars(t *testing.T) {
 	exp2 := lexer.NewToken(lexer.PLUS, '+')
 	if !lexer.IsTokenEq(tok2, exp2) {
 		t.Fatalf("expected tok2: %+v to be: %+v", tok2, exp2)
-	}
-
-	tok3 := l.NextToken()
-	exp3 := lexer.NewToken(lexer.LPAREN, '(')
-	if !lexer.IsTokenEq(tok3, exp3) {
-		t.Fatalf("expected tok3: %+v to be: %+v", tok3, exp3)
 	}
 }
 
@@ -47,7 +41,66 @@ func Test_NextToken_MoreChars(t *testing.T) {
 	for i, expectedToken := range expectedTokens {
 		tok := l.NextToken()
 		if !lexer.IsTokenEq(tok, expectedToken) {
-			t.Fatalf("expected tok[%d]: %+v to be: %+v", i, tok, expectedToken)
+			t.Fatalf("expected tok[%d]: %v to be: %v", i, tok, expectedToken)
+		}
+	}
+}
+
+func Test_NextToken_LittleProgram(t *testing.T) {
+	input := `let five = 5;
+let ten = 10;
+
+let add = fn(x, y) {
+	x + y;
+};
+
+let result = add(five, ten);
+`
+	expectedTokens := []lexer.Token{
+		{lexer.LET, "let"},
+		{lexer.IDENT, "five"},
+		{lexer.ASSIGN, "="},
+		{lexer.INT, "5"},
+		{lexer.SEMICOLON, ";"},
+		{lexer.LET, "let"},
+		{lexer.IDENT, "ten"},
+		{lexer.ASSIGN, "="},
+		{lexer.INT, "10"},
+		{lexer.SEMICOLON, ";"},
+		{lexer.LET, "let"},
+		{lexer.IDENT, "add"},
+		{lexer.ASSIGN, "="},
+		{lexer.FUNCTION, "fn"},
+		{lexer.LPAREN, "("},
+		{lexer.IDENT, "x"},
+		{lexer.COMMA, ","},
+		{lexer.IDENT, "y"},
+		{lexer.RPAREN, ")"},
+		{lexer.LBRACE, "{"},
+		{lexer.IDENT, "x"},
+		{lexer.PLUS, "+"},
+		{lexer.IDENT, "y"},
+		{lexer.SEMICOLON, ";"},
+		{lexer.RBRACE, "}"},
+		{lexer.SEMICOLON, ";"},
+		{lexer.LET, "let"},
+		{lexer.IDENT, "result"},
+		{lexer.ASSIGN, "="},
+		{lexer.IDENT, "add"},
+		{lexer.LPAREN, "("},
+		{lexer.IDENT, "five"},
+		{lexer.COMMA, ","},
+		{lexer.IDENT, "ten"},
+		{lexer.RPAREN, ")"},
+		{lexer.SEMICOLON, ";"},
+		{lexer.EOF, ""},
+	}
+	l := lexer.New(input)
+
+	for i, expectedToken := range expectedTokens {
+		tok := l.NextToken()
+		if !lexer.IsTokenEq(tok, expectedToken) {
+			t.Fatalf("expected tok[%d]: %v to be: %v", i, tok, expectedToken)
 		}
 	}
 }
