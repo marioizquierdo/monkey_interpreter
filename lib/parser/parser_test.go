@@ -8,7 +8,7 @@ import (
 	"github.com/marioizquierdo/monkey_interpreter/lib/lexer"
 )
 
-func Test_Let_Statements(t *testing.T) {
+func Test_LetStatements(t *testing.T) {
 	input := `
 let x = 5;
 let y = 10;
@@ -34,6 +34,39 @@ let foobar = 838383;
 		stmt := program.Statements[i]
 		if errMsg := testLetStatement(t, stmt, expectedIdentifier); errMsg != "" {
 			t.Fatalf(errMsg)
+		}
+	}
+}
+
+func Test_ReturnStatmentents(t *testing.T) {
+	input := `
+return 5;
+return 10;
+return 993322;
+`
+	l := lexer.New(input)
+	p := New(l)
+
+	program := p.ParseProgram()
+	if errMsg := checkParserErrors(t, p); errMsg != "" {
+		t.Fatal(errMsg)
+	}
+
+	if program == nil {
+		t.Fatalf("expected ParseProgram() to be nil")
+	}
+	if len(program.Statements) != 3 {
+		t.Fatalf("expected len(ParseProgram()) to be 3, but is %d", len(program.Statements))
+	}
+
+	for _, stmt := range program.Statements {
+		returnStmt, ok := stmt.(*ast.ReturnStatement)
+		if !ok {
+			t.Errorf("expected stmt to be a *ast.ReturnStatement, but is a %T", stmt)
+			continue
+		}
+		if returnStmt.TokenLiteral() != "return" {
+			t.Errorf("expected return.Stmt.TokenLiteral() to eq 'return', but is %q", returnStmt.TokenLiteral())
 		}
 	}
 }
